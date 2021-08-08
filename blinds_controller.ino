@@ -12,9 +12,9 @@
 
 #define wait 2 //Delay Between Steps 2ms
 
-char auth[] = "H63Ym13gHmJooMgNHKNHGHTznY-S-ELX";
-char ssid[] = "SUPERONLINE_WiFi_8875";
-char pass[] = "HPVATVJU77PA";
+char auth[] = "********************";  //Blynk Token
+char ssid[] = "********************";  //WiFi Name
+char pass[] = "********************";  //WiFi Password
 
 int pin_bits[4] = {0b0001, 0b0010, 0b0100, 0b1000};
 
