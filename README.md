@@ -11,8 +11,10 @@ Wifi connected blinds with nodeMCU using Blynk
 https://www.thingiverse.com/thing:4929543
 
 # Google Assistant connection(Optional):
-Open account from the below link and use the same account in your phone
+Open account from the below link and use the same account in your phone.
+
 https://ifttt.com/
+
 Click Create ---> Click if this ---> Search Google Assistant ---> Click Say a simple phrase ---> Fill as you want.(I put ss for example)
 
 ![Ekran görüntüsü 2021-08-10 232748](https://user-images.githubusercontent.com/47865653/128930525-1fc0dbbd-e73f-410d-9a2a-d5424fe60942.jpg)
