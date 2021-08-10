@@ -19,7 +19,7 @@ char pass[] = "********************";  //WiFi Password
 int pin_bits[4] = {0b0001, 0b0010, 0b0100, 0b1000};
 
 bool can_turn_clockwise = true;
-int turn_numb = 500; //number of turns to open(or close) blinds
+int turn_numb = 500; //Change number of turns to open(or close) blinds
 int EEaddress = 0; //EEPROM Address
 
 void ICACHE_RAM_ATTR ButtonControl();
