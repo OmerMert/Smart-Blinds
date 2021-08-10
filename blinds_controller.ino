@@ -66,7 +66,6 @@ void loop()
   
   if(button_pressed)
   { 
-    button_pressed = false;
     if(can_turn_clockwise)
     {
       Turn(turn_numb, true);
@@ -78,6 +77,7 @@ void loop()
     
     EEPROM.write(EEaddress, can_turn_clockwise);
     Blynk.virtualWrite(V1, !can_turn_clockwise);
+    button_pressed = false;
   }
   
 }
