@@ -10,4 +10,3 @@ Wifi connected blinds with nodeMCU using Blynk
 # 3D print parts:
 
 
-# Blynk App:
