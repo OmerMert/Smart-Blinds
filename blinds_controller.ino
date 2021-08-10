@@ -18,9 +18,10 @@ char pass[] = "********************";  //WiFi Password
 
 int pin_bits[4] = {0b0001, 0b0010, 0b0100, 0b1000};
 
-bool can_turn_clockwise = true;
 int turn_numb = 500; //Change number of turns to open(or close) blinds
 int EEaddress = 0; //EEPROM Address
+bool can_turn_clockwise = true;
+bool button_pressed = false;
 
 void ICACHE_RAM_ATTR ButtonControl();
 
@@ -62,24 +63,28 @@ void setup()
 void loop() 
 {
   Blynk.run();
+  
+  if(button_pressed)
+  { 
+    button_pressed = false;
+    if(can_turn_clockwise)
+    {
+      Turn(turn_numb, true);
+      can_turn_clockwise = false;
+    }else{
+      Turn(turn_numb, false);
+      can_turn_clockwise = true;
+    }
+    
+    EEPROM.write(EEaddress, can_turn_clockwise);
+    Blynk.virtualWrite(V1, !can_turn_clockwise);
+  }
+  
 }
 
 void ButtonControl()
 {
-  noInterrupts(); // disable interrupts
-  if(can_turn_clockwise)
-  {
-    Turn(turn_numb, true);
-    can_turn_clockwise = false;
-    EEPROM.write(EEaddress, can_turn_clockwise);
-  }else{
-    Turn(turn_numb, false);
-    can_turn_clockwise = true;
-    EEPROM.write(EEaddress, can_turn_clockwise);
-  }
-  Blynk.virtualWrite(V1, can_turn_clockwise);
-  interrupts(); // enable interrupts
-  
+  button_pressed = true;
 }
 
 void Turn(unsigned int amount, bool clockwiseturn)
