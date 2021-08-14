@@ -2,12 +2,22 @@
 
 Wifi connected blinds with nodeMCU using Blynk
 
-# Circuit Schematic:
+**Table of Contents**
+
+* [Circuit Schematic](#circuit-schematic)
+
+* [Blynk App](#blynk-app)
+
+* [3D print parts](#printed-parts)
+
+* [Google Assistant Connection(Optional)](#google-assistant-connection)
+
+# Circuit Schematic
 ![Blinds_Controller_bb](https://user-images.githubusercontent.com/47865653/128824365-9d32a8af-5d22-4667-abc4-2ce7c86c8fdb.png)
 
 (instead of lipo battery and voltage regulator can use 5V PSU)
 
-# Blynk App:
+# Blynk App
 Download Blynk app from Google Play Store or App Store.
 Creat new project.
 ![Screenshot_20210814-154545_Blynk](https://user-images.githubusercontent.com/47865653/129446835-b6ce3e5d-d58e-434a-b432-7f528ec99ba3.jpg)
@@ -26,10 +36,10 @@ Do not forget to change the maximum value of vertical slider same as the turn nu
 ![Screenshot_20210814-155433_Blynk](https://user-images.githubusercontent.com/47865653/129446993-1ebfeea7-2c00-4f76-870d-a484fe03e93b.jpg)
 
 
-# 3D print parts:
+# Printed Parts
 https://www.thingiverse.com/thing:4929543
 
-# Google Assistant connection(Optional):
+# Google Assistant Connection
 Open account from the below link and use the same account in your phone.
 
 https://ifttt.com/
