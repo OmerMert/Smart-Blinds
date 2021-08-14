@@ -18,29 +18,69 @@ char pass[] = "********************";  //WiFi Password
 
 int pin_bits[4] = {0b0001, 0b0010, 0b0100, 0b1000};
 
-int turn_numb = 500; //Change number of turns to open(or close) blinds
-int EEaddress = 0; //EEPROM Address
+
+int turn_numb = 500; //number of turns to open(or close) blinds
+int current_pos;
+int EEaddress_direction = 0; //EEPROM Address
+int EEaddress_position = 1; //EEPROM Address
 bool can_turn_clockwise = true;
 bool button_pressed = false;
 
 void ICACHE_RAM_ATTR ButtonControl();
 
+/****** Open-Close Button ******/
 BLYNK_WRITE(V1)
 {
   if(param.asInt() == 1 && can_turn_clockwise)
   {
     //Turn On the Blinds
-    Turn(turn_numb, true);
+    Turn(current_pos, true);
+    current_pos = 0;
     can_turn_clockwise = false;
-    EEPROM.write(EEaddress, can_turn_clockwise);
+    EEPROM.write(EEaddress_direction, can_turn_clockwise);
+    EEPROM.write(EEaddress_position, current_pos);
+    Blynk.virtualWrite(V2, current_pos);
   }
   else if(param.asInt() == 0 && !can_turn_clockwise)
   {
     //Turn Off the Blinds
-    Turn(turn_numb, false);
+    Turn(turn_numb - current_pos, false);
+    current_pos = turn_numb;
     can_turn_clockwise = true;
-    EEPROM.write(EEaddress, can_turn_clockwise);  
+    EEPROM.write(EEaddress_direction, can_turn_clockwise);  
+    EEPROM.write(EEaddress_position, current_pos);
+    Blynk.virtualWrite(V2, current_pos);
   }
+}
+
+/****** Vertical Slider ******/
+BLYNK_WRITE(V2)
+{
+  if(param.asInt() > current_pos)
+  {
+    if(param.asInt() == turn_numb)
+    {
+      can_turn_clockwise = true;
+      EEPROM.write(EEaddress_direction, can_turn_clockwise);
+      Blynk.virtualWrite(V1, !can_turn_clockwise);
+    }
+    Turn(param.asInt() - current_pos, false);
+    current_pos = param.asInt();
+    EEPROM.write(EEaddress_position, current_pos);
+  }
+  else if(param.asInt() < current_pos)
+  {
+    if(param.asInt() == 0)
+    {
+      can_turn_clockwise = false;
+      EEPROM.write(EEaddress_direction, can_turn_clockwise);
+      Blynk.virtualWrite(V1, !can_turn_clockwise);
+    }
+    Turn(current_pos - param.asInt(), true);
+    current_pos = param.asInt();
+    EEPROM.write(EEaddress_position, current_pos);
+  }
+  
 }
 
 void setup() 
@@ -53,9 +93,11 @@ void setup()
   pinMode(SP3, OUTPUT);
   pinMode(SP4, OUTPUT);
   
-  can_turn_clockwise = EEPROM.read(EEaddress);
-
-  attachInterrupt(digitalPinToInterrupt(button), ButtonControl, RISING);
+  current_pos = turn_numb;
+  can_turn_clockwise = EEPROM.read(EEaddress_direction);
+  current_pos = EEPROM.read(EEaddress_position);
+  
+  attachInterrupt(digitalPinToInterrupt(button), ButtonStatus, RISING);
   
   TurnOffMotor();
 }
@@ -63,28 +105,36 @@ void setup()
 void loop() 
 {
   Blynk.run();
-  
-  if(button_pressed)
-  { 
-    if(can_turn_clockwise)
-    {
-      Turn(turn_numb, true);
-      can_turn_clockwise = false;
-    }else{
-      Turn(turn_numb, false);
-      can_turn_clockwise = true;
-    }
-    
-    EEPROM.write(EEaddress, can_turn_clockwise);
-    Blynk.virtualWrite(V1, !can_turn_clockwise);
-    button_pressed = false;
-  }
-  
+
+  ButtonControl();
 }
 
-void ButtonControl()
+void ButtonStatus()
 {
   button_pressed = true;
+}
+
+/****** Push Button Control ******/
+void ButtonControl()
+{
+  if(button_pressed)
+  {
+    if(can_turn_clockwise)
+    {
+      Turn(current_pos, true);
+      can_turn_clockwise = false;
+      current_pos = 0;
+    }else{
+      Turn(turn_numb - current_pos, false);
+      can_turn_clockwise = true;
+      current_pos = turn_numb;
+    }
+    EEPROM.write(EEaddress_direction, can_turn_clockwise);
+    EEPROM.write(EEaddress_position, current_pos);
+    Blynk.virtualWrite(V1, !can_turn_clockwise);
+    Blynk.virtualWrite(V2, current_pos);
+    button_pressed = false;
+  }
 }
 
 void Turn(unsigned int amount, bool clockwiseturn)
