@@ -8,6 +8,23 @@ Wifi connected blinds with nodeMCU using Blynk
 (instead of lipo battery and voltage regulator can use 5V PSU)
 
 # Blynk App:
+Download Blynk app from Google Play Store or App Store.
+Creat new project.
+![Screenshot_20210814-154545_Blynk](https://user-images.githubusercontent.com/47865653/129446835-b6ce3e5d-d58e-434a-b432-7f528ec99ba3.jpg)
+
+![Screenshot_20210814-154621_Blynk](https://user-images.githubusercontent.com/47865653/129446841-813f6e29-e9f1-4c36-95bc-dfa2a8c906ce.jpg)
+When you created new project you get an email including your Auth Token. Do not forget to write it on code.
+Add button and vertical slider.
+
+![Screenshot_20210814-154745_Blynk](https://user-images.githubusercontent.com/47865653/129446851-47b04753-67bb-4276-827c-853208beb014.jpg)
+
+Change button pin as virtual pin V1 and vertical slider pin as virtual pin V2.
+Do not forget to change the maximum value of vertical slider same as the turn number in the code.
+
+(Optional) You can add a timer in Blynk so blinds automatically open and close at specified times.
+
+![Screenshot_20210814-155433_Blynk](https://user-images.githubusercontent.com/47865653/129446993-1ebfeea7-2c00-4f76-870d-a484fe03e93b.jpg)
+
 
 # 3D print parts:
 https://www.thingiverse.com/thing:4929543
