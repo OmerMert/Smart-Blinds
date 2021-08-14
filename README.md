@@ -7,6 +7,8 @@ Wifi connected blinds with nodeMCU using Blynk
 
 (instead of lipo battery and voltage regulator can use 5V PSU)
 
+#Blynk App:
+
 # 3D print parts:
 https://www.thingiverse.com/thing:4929543
 
