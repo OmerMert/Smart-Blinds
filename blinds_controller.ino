@@ -26,7 +26,7 @@ int EEaddress_position = 1; //EEPROM Address
 bool can_turn_clockwise = true;
 bool button_pressed = false;
 
-void ICACHE_RAM_ATTR ButtonControl();
+void ICACHE_RAM_ATTR ButtonStatus();
 
 /****** Open-Close Button ******/
 BLYNK_WRITE(V1)
@@ -85,7 +85,7 @@ BLYNK_WRITE(V2)
 
 void setup() 
 {
-  Serial.begin(9600);
+  Serial.begin(115200);
   Blynk.begin(auth, ssid, pass);
   
   pinMode(SP1, OUTPUT);
